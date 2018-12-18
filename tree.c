@@ -55,13 +55,13 @@ void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a){
           continue;
 
       //Se usa %*s para hacer las sangrias correspondientes al nivel
-      printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name);
+      //printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name);
       (*d)++; //Se incrementa el contenido
       listarDir(ruta, nivel+1,d,a); //Se muestra la carpeta siguiente
       //Se sigue enviando las referencias
 
     } else { //Caso directorio
-      printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name);
+      printf("%*s- %s/%s\n", (int32_t)nivel*4, "", rutaParcial, contenido->d_name);
       (*a)++;
     }
   } while ((contenido= readdir(carpeta))!= NULL);
