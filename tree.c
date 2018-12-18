@@ -51,7 +51,7 @@ void listarDir(const char *rutaParcial)
     {
         if (contenido->d_type == DT_DIR) //Se verifica si la entrada es un archivo o un directorio
         {
-            snprintf(ruta,1023,"%s/%s",rutaParcial,contenido->d_name); //Se escribe la ruta siguiente a usarse
+            snprintf(ruta, 1023, "%s/%s", rutaParcial, contenido->d_name); //Se escribe la ruta siguiente a usarse
 
             if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0) //No se imprimen . ni ..
                 continue;
@@ -61,7 +61,7 @@ void listarDir(const char *rutaParcial)
 
         else //Caso archivo
         {
-            printf("%s%s%s%s%s%s%s\n", "<li data-jstree=\'{\"icon\":\"fas fa-file-pdf\"}\'>", "<a href=\"", 
+            fprintf(salida, "%s%s%s%s%s%s%s\n", "<li data-jstree=\'{\"icon\":\"fas fa-file-pdf\"}\'>", "<a href=\"", 
                     rutaParcial, contenido->d_name, "\"><strong>", contenido->d_name, "</strong></a></li>");
         }
     } while ((contenido= readdir(carpeta))!= NULL);
