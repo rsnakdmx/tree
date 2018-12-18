@@ -54,6 +54,7 @@ void listarDir(const char *rutaParcial)
             if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0) //No se imprimen . ni ..
                 continue;
 
+            printf("%*s[%s]\n", contenido->d_name);
             listarDir(ruta); //Se muestra la carpeta siguiente
         }
 
