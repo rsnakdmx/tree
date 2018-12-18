@@ -11,7 +11,6 @@ int main(const int argc, const char *argv[])
     if (argc == 2)//Se valida la cantidad de argumentos pasados
     {
         listarDir(argv[1]); //Se pasan por referencia
-        printf("\nDirectorios: %jd, Archivos: %jd\n",dirs,archs);
         return EXIT_SUCCESS;
     }
 
@@ -25,7 +24,6 @@ int main(const int argc, const char *argv[])
 void listarDir(const char *rutaParcial)
 {
     char *ruta = (char*)calloc(1024,sizeof(char)); //Memoria para la ruta
-    FILE *salida = fopen("salida.txt", "w");
     DIR *carpeta; //Flujo
     struct dirent *contenido; //Contenido de la carpeta
 
@@ -61,12 +59,10 @@ void listarDir(const char *rutaParcial)
 
         else //Caso archivo
         {
-            fprintf(salida, "%s%s%s%s%s%s%s\n", "<li data-jstree=\'{\"icon\":\"fas fa-file-pdf\"}\'>", "<a href=\"", 
-                    rutaParcial, contenido->d_name, "\"><strong>", contenido->d_name, "</strong></a></li>");
+            printf("- %s\n", contenido->d_name);
         }
     } while ((contenido= readdir(carpeta))!= NULL);
 
-    fclose(salida);
     closedir(carpeta); //Se cierra el flujo
     free(ruta); //Se libera la memoria
 }
