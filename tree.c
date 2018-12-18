@@ -52,20 +52,21 @@ void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a)
     {
         if (contenido->d_type == DT_DIR) //Se verifica si la entrada es un archivo o un directorio
         {
-            snprintf(ruta,1023,"%s/%s",rutaParcial,contenido->d_name); //Se escribe la ruta siguiente a usarse
+            snprintf(ruta, 1023, "%s/%s", rutaParcial, contenido->d_name); //Se escribe la ruta siguiente a usarse
 
             if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0) //No se imprimen . ni ..
                 continue;
 
-            printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name); //Se usa %*s para hacer las sangrias del nivel
-            (*d)++; //Se incrementa el contenido
-            listarDir(ruta, nivel+1,d,a); //Se muestra la carpeta siguiente
+            /*printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name); //Se usa %*s para hacer las sangrias del nivel
+            (*d)++; //Se incrementa el contenido*/
+            listarDir(ruta, nivel + 1, d, a); //Se muestra la carpeta siguiente
         }
 
-        else 
+        else //Caso archivo
         {
-            printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name); //Caso archivo
-            (*a)++;
+            printf("%s%s%s%s%s%s\n", "<li data-jstree=\'{\"icon\":\"fas fa-file-pdf\"}\'>", "<a href=\"", 
+                   contenido->d_name, "\"><strong>", "nombreArch.docx", "</strong></a></li>"); 
+            //(*a)++;
         }
     } while ((contenido= readdir(carpeta))!= NULL);
 
