@@ -1,0 +1,11 @@
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/cb.docx"><strong>cb.docx</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/cred.jpg"><strong>cred.jpg</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/interbaseServer.txt"><strong>interbaseServer.txt</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/payload.txt"><strong>payload.txt</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/udemy.txt"><strong>udemy.txt</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/payloadModulab.txt"><strong>payloadModulab.txt</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/url_payloads.txt"><strong>url_payloads.txt</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo/prueba_pagina.txt"><strong>prueba_pagina.txt</strong></a></li>
+/X/Archivo//Codigos de barra/V00088.jpg"><strong>V00088.jpg</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo//Codigos de barra/V00109.jpg"><strong>V00109.jpg</strong></a></li>
+<li data-jstree='{"icon":"fas fa-file-pdf"}'><a href="/home/ssnakesito/X/Archivo//Codigos de barra/V00143.jpg"><strong>V00143.jpg</strong></a></li>
