@@ -57,19 +57,18 @@ void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a)
             if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0) //No se imprimen . ni ..
                 continue;
 
-            printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name); //Se usa %*s para hacer las sangrias correspondientes al nivel
+            printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name); //Se usa %*s para hacer las sangrias del nivel
             (*d)++; //Se incrementa el contenido
             listarDir(ruta, nivel+1,d,a); //Se muestra la carpeta siguiente
         }
 
         else 
         {
-            printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name); //Caso directorio
+            printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name); //Caso archivo
             (*a)++;
         }
     } while ((contenido= readdir(carpeta))!= NULL);
 
-    //Se cierra el flujo
-    closedir(carpeta);
+    closedir(carpeta); //Se cierra el flujo
     free(ruta); //Se libera la memoria
 }
