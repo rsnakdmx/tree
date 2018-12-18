@@ -8,8 +8,8 @@ void listarDir(const char*, int64_t, int64_t*, int64_t*); //Prototipo
 
 int32_t main(const int32_t argc, const char *argv[])
 {
-  //Se valida la cantidad de argumentos pasados
-    if (argc == 2) {
+    if (argc == 2)//Se valida la cantidad de argumentos pasados
+    {
         int64_t dirs= 0, archs= 0; //Variables donde se cuentan los elementos
         printf("\n\n[%s]\n",argv[1]);
         listarDir(argv[1], 1, &dirs, &archs); //Se pasan por referencia
@@ -30,15 +30,13 @@ void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a)
     DIR *carpeta; //Flujo
     struct dirent *contenido; //Contenido de la carpeta
 
-    //Se comprueba que hay espacio para la ruta
-    if (!ruta)
+    if (!ruta) //Se comprueba que hay espacio para la ruta
     {
         perror("Error: ");
         return;
     }
 
-    //Se comprueba que sean directorios validos
-    if (!(carpeta = opendir(rutaParcial)))
+    if (!(carpeta = opendir(rutaParcial))) //Se comprueba que sean directorios validos
     {
         perror("Error: ");
         return;
@@ -52,26 +50,21 @@ void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a)
 
     do 
     {
-        //Se verifica si la entrada es un archivo o un directorio
-        if (contenido->d_type == DT_DIR)
+        if (contenido->d_type == DT_DIR) //Se verifica si la entrada es un archivo o un directorio
         {
-            //Se escribe la ruta siguiente a usarse
-            snprintf(ruta,1023,"%s/%s",rutaParcial,contenido->d_name);
+            snprintf(ruta,1023,"%s/%s",rutaParcial,contenido->d_name); //Se escribe la ruta siguiente a usarse
 
-            //No se imprimen . ni ..
-            if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0)
+            if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0) //No se imprimen . ni ..
                 continue;
 
-            //Se usa %*s para hacer las sangrias correspondientes al nivel
-            printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name);
+            printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name); //Se usa %*s para hacer las sangrias correspondientes al nivel
             (*d)++; //Se incrementa el contenido
             listarDir(ruta, nivel+1,d,a); //Se muestra la carpeta siguiente
-            //Se sigue enviando las referencias
         }
 
         else 
-        { //Caso directorio
-            printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name);
+        {
+            printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name); //Caso directorio
             (*a)++;
         }
     } while ((contenido= readdir(carpeta))!= NULL);
