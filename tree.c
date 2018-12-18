@@ -4,15 +4,13 @@
 #include <dirent.h> //opendir,readdir,closedir
 #include <string.h> //strlen, strcmp
 
-void listarDir(const char*, int64_t, int64_t*, int64_t*); //Prototipo
+void listarDir(const char*); //Prototipo
 
-int32_t main(const int32_t argc, const char *argv[])
+int main(const int argc, const char *argv[])
 {
     if (argc == 2)//Se valida la cantidad de argumentos pasados
     {
-        int64_t dirs= 0, archs= 0; //Variables donde se cuentan los elementos
-        printf("\n\n[%s]\n",argv[1]);
-        listarDir(argv[1], 1, &dirs, &archs); //Se pasan por referencia
+        listarDir(argv[1]); //Se pasan por referencia
         printf("\nDirectorios: %jd, Archivos: %jd\n",dirs,archs);
         return EXIT_SUCCESS;
     }
@@ -24,9 +22,10 @@ int32_t main(const int32_t argc, const char *argv[])
     }
 }
 
-void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a)
+void listarDir(const char *rutaParcial)
 {
-    char *ruta= (char*)calloc(1024,sizeof(char)); //Memoria para la ruta
+    char *ruta = (char*)calloc(1024,sizeof(char)); //Memoria para la ruta
+    FILE *salida = fopen("salida.txt", "w");
     DIR *carpeta; //Flujo
     struct dirent *contenido; //Contenido de la carpeta
 
@@ -57,18 +56,17 @@ void listarDir(const char *rutaParcial,int64_t nivel,int64_t *d,int64_t *a)
             if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0) //No se imprimen . ni ..
                 continue;
 
-            printf("%*s[%s]\n", (int32_t)nivel*4, "", contenido->d_name); //Se usa %*s para hacer las sangrias del nivel
-            (*d)++; //Se incrementa el contenido
-            listarDir(ruta, nivel+1,d,a); //Se muestra la carpeta siguiente
+            listarDir(ruta); //Se muestra la carpeta siguiente
         }
 
-        else 
+        else //Caso archivo
         {
-            printf("%*s- %s\n", (int32_t)nivel*4, "", contenido->d_name); //Caso archivo
-            (*a)++;
+            printf("%s%s%s%s%s%s%s\n", "<li data-jstree=\'{\"icon\":\"fas fa-file-pdf\"}\'>", "<a href=\"", 
+                    rutaParcial, contenido->d_name, "\"><strong>", contenido->d_name, "</strong></a></li>");
         }
     } while ((contenido= readdir(carpeta))!= NULL);
 
+    fclose(salida);
     closedir(carpeta); //Se cierra el flujo
     free(ruta); //Se libera la memoria
 }
