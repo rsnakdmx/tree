@@ -30,15 +30,30 @@ int main(int argc, const char *argv[])
 
 void listarDir(const char * restrict rutaParcial, FILE * restrict salida)
 {
-  	char * restrict ruta = (char * restrict)calloc(0x1024, sizeof(char));
-  	DIR * restrict carpeta = opendir(rutaParcial);
-  	struct dirent * restrict contenido = readdir(carpeta);
+  	char * restrict ruta;
+  	DIR * restrict carpeta;
+  	struct dirent * restrict contenido;
 
-  	if (!ruta || !carpeta || !contenido) 
+  	if (!(ruta = (char * restrict)calloc(0x1024, sizeof(char)))) 
 	{
     	perror("Error: ");
     	return;
   	}
+
+	else if (!(carpeta = opendir(rutaParcial)))
+	{
+		free(ruta);
+		perror("Error: ");
+		return;
+	}
+
+	else if (!(contenido = readdir(carpeta)))
+	{
+		closedir(carpeta);
+		free(ruta);
+		perror("Error: ");
+		return;
+	}
 
   	do 
 	{
