@@ -1,16 +1,24 @@
-#include <stdio.h> //snprintf,printf
-#include <stdlib.h> //free,calloc,perror
-#include <dirent.h> //opendir,readdir,closedir
-#include <string.h> //strlen, strcmp
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <string.h>
 
-void listarDir(const char * restrict); //Prototipo
+void listarDir(const char * restrict, FILE * restrict);
 
 int main(int argc, const char *argv[])
 {
     if (argc == 0x2) 
     {
-    	listarDir(argv[1]);
-    	return EXIT_SUCCESS;
+		FILE * restrict salida = fopen("links.html", "w+");
+
+		if (salida)
+		{
+			listarDir(argv[1], salida);
+			fclose(salida);
+			return EXIT_SUCCESS;
+		}
+
+		return EXIT_FAILURE;
   	}
 	
 	else
@@ -20,7 +28,7 @@ int main(int argc, const char *argv[])
   	}
 }
 
-void listarDir(const char * restrict rutaParcial)
+void listarDir(const char * restrict rutaParcial, FILE * restrict salida)
 {
   	char * restrict ruta = (char * restrict)calloc(0x1024, sizeof(char));
   	DIR * restrict carpeta = opendir(rutaParcial);
@@ -41,11 +49,11 @@ void listarDir(const char * restrict rutaParcial)
       		if (strcmp(contenido->d_name, ".") == 0 || strcmp(contenido->d_name, "..") == 0)
           		continue;
 
-      		listarDir(ruta);
+      		listarDir(ruta, salida);
     	} 
 	
 		else //Caso archivo
-    		printf("%s%s%s/%s%s%s%s\n", "<li data-jstree='{\"icon\":\"fas fa-file-pdf\"}'>", "<a href=\"", 
+    		fprintf(salida, "%s%s%s/%s%s%s%s\n", "<li data-jstree='{\"icon\":\"fas fa-file-pdf\"}'>", "<a href=\"", 
 					rutaParcial, contenido->d_name, "\"><strong>", contenido->d_name, "</strong></a></li>");
 
   	} while (contenido = readdir(carpeta));
